@@ -17,7 +17,7 @@ COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
 RUN composer --version && php -v
 
 # copy the composer.json file
-COPY ./composer.json .
+COPY . .
 
 # RUN composer install
 RUN composer install --prefer-dist --no-dev --no-scripts --no-progress --no-interaction
