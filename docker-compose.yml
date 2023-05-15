@@ -17,7 +17,9 @@ services:
       - webserver_data:/usr/local/apache2/htdocs
   php:
     container_name: php
-    image: rpl-php:latest
+    build:
+      context: .
+      dockerfile: ./php.Dockerfile
     links:
       - mongo
     ports:
