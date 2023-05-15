@@ -1,0 +1,63 @@
+
+version: "3.9"
+
+volumes:
+  webserver_data:
+    external: true
+
+services:
+  apache:
+    container_name: apache
+    image: rpl-httpd:latest
+    links:
+      - php
+    ports:
+      - "80:80"
+    volumes:
+      - webserver_data:/usr/local/apache2/htdocs
+  php:
+    container_name: php
+    image: rpl-php:latest
+    links:
+      - mongo
+    ports:
+      - "9000:9000"
+    volumes:
+      - /usr/local/apache2/htdocs/vendor
+      - webserver_data:/usr/local/apache2/htdocs
+    working_dir: /usr/local/apache2/htdocs
+  mongo:
+    image: mongo:6.0.5
+    container_name: mongo
+    environment:
+        - MONGO_INITDB_ROOT_USERNAME=root
+        - MONGO_INITDB_ROOT_PASSWORD=password
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./database/mongodb/db:/data/db
+      - ./database/mongodb/dev.archive:/Databases/dev.archive
+      - ./database/mongodb/production:/Databases/production
+  ftp_server:
+    image: stilliard/pure-ftpd
+    container_name: pure-ftpd
+    ports:
+      - "21:21"
+      - "30000-30009:30000-30009"
+    volumes:
+      - webserver_data:/usr/local/apache2/htdocs
+      - ./ftp:/etc/pure-ftpd/passwd
+# uncomment for ssl/tls, see https://github.com/stilliard/docker-pure-ftpd#tls
+#      - "/folder_on_disk/ssl:/etc/ssl/private/"
+# or ssl/tls with Let's Encrypt (cert and key as two files)
+#      - "/etc/letsencrypt/live/<your_server>/cert.pem:/etc/ssl/private/pure-ftpd-cert.pem"
+#      - "/etc/letsencrypt/live/<your_server>/privkey.pem:/etc/ssl/private/pure-ftpd-key.pem"
+    environment:
+      PUBLICHOST: "10.179.100.130"
+      FTP_USER_NAME: webdev
+      FTP_USER_PASS: devpass
+      FTP_USER_HOME: /usr/local/apache2/htdocs
+# also for ssl/tls:
+#      ADDED_FLAGS: "--tls=2"
+    restart: always
