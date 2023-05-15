@@ -19,7 +19,7 @@ services:
     container_name: php
     build:
       context: .
-      dockerfile: ./php.Dockerfile
+      dockerfile: php.Dockerfile
     links:
       - mongo
     ports:
