@@ -15,6 +15,8 @@ services:
       - "80:80"
     volumes:
       - webserver_data:/usr/local/apache2/htdocs
+      - /usr/local/apache2/htdocs/vendor
+      - /dev/null:/usr/local/apache2/htdocs/composer.json
   php:
     container_name: php
     build:
@@ -50,6 +52,8 @@ services:
       - "30000-30009:30000-30009"
     volumes:
       - webserver_data:/usr/local/apache2/htdocs
+      - /usr/local/apache2/htdocs/vendor
+      - /dev/null:/usr/local/apache2/htdocs/composer.json
       - ./ftp:/etc/pure-ftpd/passwd
 # uncomment for ssl/tls, see https://github.com/stilliard/docker-pure-ftpd#tls
 #      - "/folder_on_disk/ssl:/etc/ssl/private/"
