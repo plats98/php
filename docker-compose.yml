@@ -25,9 +25,9 @@ services:
     ports:
       - "9000:9000"
     volumes:
+      - webserver_data:/usr/local/apache2/htdocs
       - /usr/local/apache2/htdocs/vendor
       - /dev/null:/usr/local/apache2/htdocs/composer.json
-      - webserver_data:/usr/local/apache2/htdocs
     working_dir: /usr/local/apache2/htdocs
   mongo:
     image: mongo:6.0.5
