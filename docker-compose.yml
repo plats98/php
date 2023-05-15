@@ -25,6 +25,7 @@ services:
     ports:
       - "9000:9000"
     volumes:
+      - /usr/local/apache2/htdocs/vendor
       - webserver_data:/usr/local/apache2/htdocs
     working_dir: /usr/local/apache2/htdocs
   mongo:
