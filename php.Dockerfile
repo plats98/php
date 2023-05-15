@@ -17,10 +17,15 @@ COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
 RUN composer --version && php -v
 
 # copy the composer.json file
-COPY composer.json .
+#COPY composer.json .
 
 # RUN composer install
-RUN composer install --prefer-dist --no-dev --no-scripts --no-progress --no-interaction
+#RUN composer install --prefer-dist --no-dev --no-scripts --no-progress --no-interaction
 
 
+WORKDIR /usr/local/apache2/htdocs
+
+COPY composer.json composer.lock ./
+
+RUN composer install \
 
