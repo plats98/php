@@ -1,0 +1,14 @@
+{
+   "name": "test2/app",
+   "description": "Simple PHP Composer app",
+   "type": "project",
+    "require": {
+        "mongodb/mongodb": "^1.8"
+    }
+}
+
+
+
+
+
+
