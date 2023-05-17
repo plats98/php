@@ -30,5 +30,5 @@ WORKDIR /usr/local/apache2/htdocs
 RUN wget -P /usr/local/apache2/htdocs https://raw.githubusercontent.com/plats98/php/main/composer.json
 #COPY composer.json composer.lock ./
 
-RUN composer install \
+RUN composer install
 
