@@ -1,5 +1,5 @@
 {
-   "name": "test2/app",
+   "name": "test3/app",
    "description": "Simple PHP Composer app",
    "type": "project",
     "require": {
