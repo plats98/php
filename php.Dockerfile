@@ -4,7 +4,9 @@ FROM php:8.1-fpm
 RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     libzip-dev \
+    wget \
     unzip
+  
 RUN docker-php-ext-install zip
 RUN apt-get install -y autoconf pkg-config libssl-dev
 RUN pecl install mongodb
