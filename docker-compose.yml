@@ -8,7 +8,9 @@ volumes:
 services:
   apache:
     container_name: apache
-    image: rpl-httpd:latest
+    build:
+      context: .
+      dockerfile: apache.Dockerfile
     links:
       - php
     ports:
